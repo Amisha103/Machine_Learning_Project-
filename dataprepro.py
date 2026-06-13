@@ -108,3 +108,17 @@ print("\nChi-Square Test Results:\n")
 print(chi2_df)
 final_df = df_cleaned[['age', 'is_female', 'bmi', 'children', 'is_smoker', 'region_southeast', 'bmi_category_Obese','charges']]
 print("\nFinal Data Sample:\n", final_df.head())
+
+#SPLITTING DATA
+from sklearn.model_selection import train_test_split 
+X = final_df.drop('charges', axis = 1)
+y = final_df['charges']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state=42)
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+ 
+
+
+

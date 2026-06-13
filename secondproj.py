@@ -40,14 +40,32 @@ ch_restingbp = df.loc[df['RestingBP'] != 0, 'RestingBP'].mean()
 df['RestingBP'] = df['RestingBP'].replace(0, ch_restingbp)
 df['RestingBP'] = df['RestingBP'].round(2)
 
-def plotting(var, num):
-    plt.subplot(2, 2, num)
-    sns.histplot(df[var], kde=True)
-    plt.show()
+# def plotting(var, num):
+#     plt.subplot(2, 2, num)
+#     sns.histplot(df[var], kde=True)
+#     plt.show()
     
 
-plotting('Age', 1)
-plotting('RestingBP', 2)
-plotting('Cholesterol', 3)
-plotting('MaxHR', 4)
-plt.tight_layout()
+# plotting('Age', 1)
+# plotting('RestingBP', 2)
+# plotting('Cholesterol', 3)
+# plotting('MaxHR', 4)
+# plt.tight_layout()
+
+# sns.boxplot(x = 'HeartDisease', y = 'Cholesterol', data = df)
+# plt.show()
+# sns.heatmap(df.corr(), annot = True, cmap = 'coolwarm')
+# plt.show()
+
+#DATA PREPROCESSING AND CLEANING
+
+df_encode = pd.get_dummies(df, drop_first=True)
+print(df_encode.head())
+df_encode = df_encode.astype('int')
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+numerical_cols = ['Age', 'RestingBP', 'Cholesterol', 'MaxHR', 'Oldpeak']
+df_encode[numerical_cols] = scaler.fit_transform(df_encode[numerical_cols])
+print(df_encode.head())
+
+

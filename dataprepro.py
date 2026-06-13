@@ -118,7 +118,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, rand
 from sklearn.linear_model import LinearRegression
 model = LinearRegression()
 model.fit(X_train, y_train)
- 
-
+y_pred = model.predict(X_test)
+# print(y_pred)
+from sklearn.metrics import r2_score
+r2 = r2_score(y_test, y_pred)
+print(r2)
+n = X_test.shape[0]
+p = X_test.shape[1]
+adj_r2 = 1 - (((1 - r2) * (n - 1)) / (n - p - 1))
+print(adj_r2)
 
 
